@@ -1,0 +1,43 @@
+services:
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage 
+
+  vitruvia-runner:
+    build: ./app
+    command: python vitruvia.py
+    depends_on:
+      - qdrant
+    volumes:
+      - ./documents:/app/documents 
+
+  gradio-app:
+    build: ./app
+    ports:
+      - "7860:7860"
+    depends_on:
+      - qdrant
+      - vitruvia-runner
+    entrypoint: ["/entrypoint.sh"]
+    environment:
+      - NGROK_AUTHTOKEN=2ydq4bbN6G3uSfZjo7dKyC9tf2L_H1wXtRCyuoULib4kySk3
+    volumes:
+      - ./documents:/app/documents 
+      - ./images:/app/images 
+      - gradio_temp:/tmp/gradio
+
+  ngrok:
+    image: ngrok/ngrok:alpine
+    restart: unless-stopped
+    depends_on:
+      - gradio-app
+    command: http gradio-app:7860
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}  # Provide via .env or hardcode
+
+volumes:
+  qdrant_data:
+  gradio_temp:
