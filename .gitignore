@@ -1,0 +1,70 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+*.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Pytest cache
+.pytest_cache/
+
+# VSCode and other IDE configs
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Selenium / webdriver screenshots
+*.png
+
+# Compiled C extensions
+*.so
+
+# Coverage reports
+htmlcov/
+coverage.xml
+*.cover
+
+# PyInstaller
+dist/
+build/
+*.spec
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Notebooks output
+*.nbconvert.ipynb
+
+# CSV or Excel outputs
+*.csv
+*.xls
+*.xlsx
+
+# Qdrant / DB data
+__qdrant_data/
+qdrant_data/
