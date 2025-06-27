@@ -19,11 +19,12 @@ import pandas as pd
 from functools import partial
 import logging
 import requests
-
+from dotenv import load_dotenv
 logging.basicConfig(level=logging.INFO)
 
+load_dotenv() 
 openai = OpenAI(
-    api_key="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"
+    api_key=os.getenv("OPENAI_API_KEY")
 )
 qdrant = QdrantClient(host="qdrant", port=6333)
 DOCS_PATH = "documents"

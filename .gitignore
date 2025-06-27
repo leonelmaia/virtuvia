@@ -1,4 +1,5 @@
 # Byte-compiled / optimized / DLL files
+app/__pycache__/
 __pycache__/
 *.py[cod]
 *$py.class
@@ -30,6 +31,8 @@ env.bak/
 # Environment variables and secrets
 .env
 .env.*
+app/.env
+app/.env.*
 
 # Selenium / webdriver screenshots
 *.png
@@ -56,6 +59,7 @@ dmypy.json
 *.tmp
 *.bak
 *.swp
+documents/
 
 # Notebooks output
 *.nbconvert.ipynb

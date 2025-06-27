@@ -1,5 +1,5 @@
 # api.py
-
+import os
 import logging
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -10,12 +10,14 @@ from law_agent import (
     extract_keyword,
 )
 from utils import OpenAI
+from dotenv import load_dotenv
 
+load_dotenv()
 logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
 openai = OpenAI(
-    api_key="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"
+    api_key=os.getenv("OPENAI_API_KEY")
 )
 
 

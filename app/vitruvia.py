@@ -1,16 +1,18 @@
 from utils import add_pdf_to_qdrant_index, OpenAI, QdrantClient
 from qdrant_client.models import VectorParams, Distance
+import os
 import sys
 import csv
 import pandas as pd
 import logging
 import time
-
+from dotenv import load_dotenv
 logging.basicConfig(level=logging.INFO, handlers=[logging.StreamHandler(sys.stdout)])
+load_dotenv() 
 
 # Initialize clients
 openai = OpenAI(
-    api_key="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"
+    api_key=os.getenv("OPENAI_API_KEY")
 )
 qdrant = QdrantClient(host="qdrant", port=6333)  # For docker compose execution
 # qdrant = QdrantClient(host="localhost", port=6333)
