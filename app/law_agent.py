@@ -1,7 +1,7 @@
 from utils import OpenAI
 import logging
-logging.basicConfig(level=logging.INFO)
 
+logging.basicConfig(level=logging.INFO)
 
 
 def classify_case_gpt(text: str, openai: OpenAI) -> str:
@@ -22,14 +22,12 @@ Texto:
 Responda apenas com a categoria.
 """
     response = openai.chat.completions.create(
-        model="gpt-4",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0
+        model="gpt-4", messages=[{"role": "user", "content": prompt}], temperature=0
     )
     return response.choices[0].message.content.strip()
 
 
-def extract_keyword(msg: str, openai: OpenAI)  -> str:
+def extract_keyword(msg: str, openai: OpenAI) -> str:
     prompt = f"""
     Extraia a principal palavra ou expressão-chave jurídica deste texto para ser usada em uma busca legal:
     
@@ -40,9 +38,7 @@ def extract_keyword(msg: str, openai: OpenAI)  -> str:
     Responda apenas com a palavra ou expressão, sem explicações.
     """
     response = openai.chat.completions.create(
-        model="gpt-4",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0
+        model="gpt-4", messages=[{"role": "user", "content": prompt}], temperature=0
     )
     return response.choices[0].message.content.strip()
 
@@ -64,13 +60,19 @@ def analyze_risk(case_type: str, amount: float) -> dict:
         "Tipo": case_type_normalized,
         "Probabilidade de sucesso": round(chance * 100, 2),
         "Risco": risk_level,
-        "estimativa_perda": estimated_loss
+        "estimativa_perda": estimated_loss,
     }
 
+
 def generate_mock_report(area: str) -> dict:
-    
+
     mock_data = {
-        "trabalhista": {"casos": 52, "vitorias": 35, "acordos": 10, "tempo_medio": "91 days"},
+        "trabalhista": {
+            "casos": 52,
+            "vitorias": 35,
+            "acordos": 10,
+            "tempo_medio": "91 days",
+        },
         "cível": {"casos": 29, "vitorias": 15, "acordos": 7, "tempo_medio": "88 days"},
         "penal": {"casos": 8, "vitorias": 3, "acordos": 2, "tempo_medio": "122 days"},
     }

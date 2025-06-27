@@ -4,15 +4,31 @@ services:
     ports:
       - "6333:6333"
     volumes:
-      - qdrant_data:/qdrant/storage 
+      - qdrant_data:/qdrant/storage
 
-  vitruvia-runner:
+  law-api:
     build: ./app
-    command: python vitruvia.py
+    command: uvicorn law_api:app --host 0.0.0.0 --port 8000
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"
     depends_on:
       - qdrant
     volumes:
-      - ./documents:/app/documents 
+      - ./documents:/app/documents
+
+  selenium:
+    image: seleniarm/standalone-firefox:latest
+    ports:
+      - "4444:4444"
+      - "7900:7900"  # Porta do VNC, must be removed
+    shm_size: 2g
+    restart: unless-stopped
+    environment:
+      - SE_NODE_MAX_SESSIONS=1
+      - SE_NODE_SESSION_TIMEOUT=60
+      - VNC_NO_PASSWORD=1
 
   gradio-app:
     build: ./app
@@ -20,14 +36,16 @@ services:
       - "7860:7860"
     depends_on:
       - qdrant
-      - vitruvia-runner
+      - selenium
     entrypoint: ["/entrypoint.sh"]
     environment:
       - NGROK_AUTHTOKEN=2ydq4bbN6G3uSfZjo7dKyC9tf2L_H1wXtRCyuoULib4kySk3
+      - SELENIUM_URL=http://selenium:4444/wd/hub
     volumes:
-      - ./documents:/app/documents 
-      - ./images:/app/images 
+      - ./documents:/app/documents
+      - ./images:/app/images
       - gradio_temp:/tmp/gradio
+      - ./app:/app # remove later
 
   ngrok:
     image: ngrok/ngrok:alpine
@@ -36,7 +54,7 @@ services:
       - gradio-app
     command: http gradio-app:7860
     environment:
-      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}  # Provide via .env or hardcode
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
 
 volumes:
   qdrant_data:

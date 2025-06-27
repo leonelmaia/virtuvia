@@ -25,6 +25,8 @@ RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz \
 
 RUN ngrok version
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade openai httpx gradio selenium webdriver-manager
+
 
 COPY . .
 
