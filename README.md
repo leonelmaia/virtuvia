@@ -1,46 +1,36 @@
-# 🧠 Projeto de Inteligência Artificial Clínica
+# Virtuvia
 
-Este repositório contém scripts e utilitários para construção de agentes inteligentes aplicados à saúde, com foco em interoperabilidade, transparência e segurança.
+Plataforma de RAG e Raciocínio Jurídico com Qdrant, Selenium e APIs públicas.
 
-## 📂 Estrutura
+## 🧩 Visão geral
 
-```
-.
-├── main.py               # Script principal
-├── utils.py              # Funções auxiliares
-├── requirements.txt      # Dependências do projeto
-├── README.md             # Este arquivo
-└── .gitignore            # Arquivos ignorados pelo Git
-```
+Este projeto objetiva construir um pipeline completo para:
 
-## ⚙️ Requisitos
+- Extrair e buscar documentos jurídicos (Lei, Jurisprudência) via LexML  
+- Processar e indexar conteúdo em embeddings com OpenAI + Qdrant  
+- Integrar recuperação de contexto (RAG) em um chatbot  
+- Orquestrar automações com Selenium e Docker Compose
 
-- Python 3.10+
-- pip
+Ideal para pesquisa jurídica, triagem documental e preparação para agentes conversacionais com fundamento técnico + legal.
 
-Instale as dependências:
+## 🚀 Funcionalidades
+
+- Scraping com Selenium (ou alternativa como undetected‑chromedriver)  
+- Suporte a múltiplos navegadores headless  
+- Conversão de PDF em texto, chunking, embeddings  
+- Armazenamento e busca vetorial com Qdrant  
+- API e UI interativa (FastAPI + Gradio)  
+- Deploy containerizado via Docker + Docker Compose
+
+## 🛠️ Pré‑requisitos
+
+- Docker e Docker Compose  
+- Conta OpenAI com chave configurada (`OPENAI_API_KEY`)  
+- Chrome ou Firefox se for testar fora do container Selenium
+
+## ⚙️ Instalação
 
 ```bash
-pip install -r requirements.txt
-```
-
-## 🚀 Como Executar
-
-```bash
-python main.py
-```
-
-## 📌 Funcionalidades
-
-- Acesso a fontes legislativas
-- Extração de conteúdo jurídico e clínico
-- Tradução automática com Google Cloud Translation
-- Envio para base vetorial (Qdrant)
-
-## 🌍 Motivação
-
-Acreditamos no uso ético e responsável da IA para ampliar o acesso a cuidados de saúde de qualidade, tanto no Brasil quanto globalmente.
-
-## 🛡️ Licença
-
-MIT License.
+git clone https://github.com/leonelmaia/virtuvia.git
+cd virtuvia/app
+docker compose up --build
